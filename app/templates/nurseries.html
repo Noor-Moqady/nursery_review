@@ -29,9 +29,16 @@
 
     <!-- Template Stylesheet -->
     <link href="static/css/style.css" rel="stylesheet">
+
+    <style>
+        span {
+            margin-left: 1000px;
+        }
+    </style>
 </head>
 
 <body>
+    <h3 >Welcome, {{request.session.logged_user_parent_name}}!<span><a href="/logout">Log Out</a></span></h1>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -52,23 +59,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="/register" class="nav-item nav-link active">Home</a>
+                    <a href="/" class="nav-item nav-link">Nurseries</a>
                     <a href="/about" class="nav-item nav-link">About Us</a>
-                    <a href="classes.html" class="nav-item nav-link">Classes</a>
+                    <a href="/contact" class="nav-item nav-link">Contact Us</a>
+                    
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="facility.html" class="dropdown-item">School Facilities</a>
-                            <a href="team.html" class="dropdown-item">Popular Teachers</a>
-                            <a href="call-to-action.html" class="dropdown-item">Become A Teachers</a>
-                            <a href="appointment.html" class="dropdown-item">Make Appointment</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
+                            <a href="/register" class="dropdown-item">Home</a>
+                            <a href="/" class="dropdown-item">Nurseries</a>
+                            <a href="/about" class="dropdown-item">About Us</a>
+                            <a href="/contact" class="dropdown-item">Contact Us</a>
+                            
+                            
+                            
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    
                 </div>
-                <a href="" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Join Us<i class="fa fa-arrow-right ms-3"></i></a>
+                <a href="/register" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Join Us<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -119,52 +129,92 @@
                     <h1 class="mb-3">Nurseries list</h1>
                     <p>The best nurseries provide a rich tapestry of educational programs, tailored activities, and an inclusive atmosphere that champions diversity and celebrates individuality. Beyond education, they prioritize open communication with parents, cultivating partnerships that support a child's development both at nursery and home. Ultimately, the best nursery is not just a place of care, but a cornerstone where fond memories are created, foundations are laid, and futures are shaped.</p>
                 </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item position-relative">
-                            <img class="img-fluid rounded-circle w-75" src="static/img/team-1.jpg" alt="">
-                            <div class="team-text">
-                                <h3>Full Name</h3>
-                                <p>Designation</p>
-                                <div class="d-flex align-items-center">
-                                    <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square btn-primary  mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square btn-primary  mx-1" href=""><i class="fab fa-instagram"></i></a>
+                {% for nursery in allnurseies%}
+                    <div class="row g-4">
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="team-item position-relative">
+                                <img class="img-fluid rounded-circle w-75" src="static/img/team-1.jpg" alt="">
+                                <div class="team-text">
+                                    <h3>Name: {{nursery.nursery_name}}</h3>
+                                    <p>Contact Number: {{nursery.contact_number}}</p>
+                                    <div class="d-flex align-items-center">
+                                        <a class="btn btn-square btn-primary mx-1" href="facebook.com"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="teitter.com"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="instagram.com"><i class="fab fa-instagram"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item position-relative">
-                            <img class="img-fluid rounded-circle w-75" src="static/img/team-2.jpg" alt="">
-                            <div class="team-text">
-                                <h3>Full Name</h3>
-                                <p>Designation</p>
-                                <div class="d-flex align-items-center">
-                                    <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square btn-primary  mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square btn-primary  mx-1" href=""><i class="fab fa-instagram"></i></a>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <div>
+            <form action="/addnursery" method="POST">
+                {% csrf_token %}
+                <div class="container-xxl py-5">
+                    <div class="container">
+                        <div class="bg-light rounded">
+                            <div class="row g-0">
+                                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="h-100 d-flex flex-column justify-content-center p-5">
+                                        <h1 class="mb-4">Create Nursery</h1>
+                                        <form>
+                                            <div class="row g-3">
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control border-0" id="gname" placeholder="Nursery Name" name="nursery_name">
+                                                        <label for="nursery_name">nursery_name</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <input type="email" class="form-control border-0" id="gmail" placeholder="Email" name="email">
+                                                        <label for="facilities">Facilities</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <input type="password" class="form-control border-0" id="cname" placeholder="Password" name =password>
+                                                        <label for="cname">program_offered</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <input type="password" class="form-control border-0" id="cage" placeholder="Confirm Password" name="confirm">
+                                                        <label for="cage">contact_number</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <input type="date" class="form-control border-0" id="cage" placeholder="Birthday" name="birthday">
+                                                        <label for="cage">nursery_location</label>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-12">
+                                                    <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item position-relative">
-                            <img class="img-fluid rounded-circle w-75" src="static/img/team-3.jpg" alt="">
-                            <div class="team-text">
-                                <h3>Full Name</h3>
-                                <p>Designation</p>
-                                <div class="d-flex align-items-center">
-                                    <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-square btn-primary  mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-square btn-primary  mx-1" href=""><i class="fab fa-instagram"></i></a>
+                                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                                    <div class="position-relative h-100">
+                                        <img class="position-absolute w-100 h-100 rounded" src="static/img/create_nursery.jpg" style="object-fit: cover;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
+
+
         <!-- Team End -->
  <!-- Footer Start -->
  <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

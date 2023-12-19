@@ -27,6 +27,8 @@ def registration_form(request):
                 user=User.objects.create(parent_name=request.POST['parent_name'], email=request.POST['email'],password=pw_hash,user_roles=Roles.objects.get(pk=2))
                 request.session['logged_user_parent_name']=user.parent_name
                 request.session['logged_user_id']=user.id
+                
+
         return redirect('/')
     
 
@@ -36,7 +38,11 @@ def welcome(request):
         messages.error(request,"You have to login first")
         return redirect('/register')
     else:
-        return render(request,"index.html")
+        context = {
+       'allnurseries': Nursery.objects.all(),
+       'specific_user': User.objects.get(id=request.session['logged_user_id'])
+               }
+    return render(request,"nurseries.html")
     
 
 def login(request):
@@ -70,12 +76,8 @@ def render_nursery(request):
 def render_aboutus(request):
     return render (request, "about.html")
 
-def render_register(request):
-    return render (request, "login_registration.html")
-
 def render_contactus(request):
     return render (request, "contact.html")
 
-
-def render_nurseries(request):
-    return render (request, "team.html")
+def addnursery(request):
+    specific_nursery = Nursery

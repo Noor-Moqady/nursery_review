@@ -44,7 +44,6 @@ class Location(models.Model):
     address = models.CharField(max_length=225)
     city = models.CharField(max_length=225)
     governarate = models.CharField(max_length=225)
-    uploaded_by = models.ForeignKey(User, related_name ='location', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -53,7 +52,6 @@ class Nursery(models.Model):
     facilities = models.CharField(max_length=225)
     program_offered = models.CharField(max_length=225)
     contact_number = models.IntegerField()
-    uploaded_by = models.ForeignKey(User, related_name ='nursery', on_delete = models.CASCADE)
     nursery_location = models.ForeignKey(Location, related_name ='nursery', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -70,7 +68,6 @@ class Nursery_section(models.Model):
     section_name = models.CharField(max_length=225)
     childage_min = models.IntegerField()
     childage_max = models.IntegerField()
-    uploaded_by = models.ForeignKey(User, related_name ='section', on_delete = models.CASCADE)
     nursery_section= models.ManyToManyField(Nursery, related_name='nursery_seciton')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
