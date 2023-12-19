@@ -32,6 +32,19 @@
 </head>
 
 <body>
+    <!-- VALIDATIONPART ###########################################################################-->
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+<!-- VALIDATIONPART ###########################################################################-->
+
+
+
+
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -91,6 +104,52 @@
 
 
         <!-- Appointment Start -->
+        <form action="/login" method="POST">
+            {%csrf_token%}
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="bg-light rounded">
+                        <div class="row g-0">
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="h-100 d-flex flex-column justify-content-center p-5">
+                                    <h1 class="mb-4">Log in </h1>
+                                    <form>
+                                        <div class="row g-3">
+                                           
+                                            <div class="col-sm-6">
+                                                <div class="form-floating">
+                                                    <input type="email" class="form-control border-0" id="gmail" placeholder="Email" name="email">
+                                                    <label for="gmail">Email</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-floating">
+                                                    <input type="password" class="form-control border-0" id="cname" placeholder="Password" name =password>
+                                                    <label for="cname">Password</label>
+                                                </div>
+                                            </div>
+                                         
+                                           
+                                           
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                                <div class="position-relative h-100">
+                                    <img class="position-absolute w-100 h-100 rounded" src="static/img/login.jpg" style="object-fit: cover;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <form action="/register" method="POST">
+        {% csrf_token %}
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="bg-light rounded">
@@ -102,31 +161,31 @@
                                     <div class="row g-3">
                                         <div class="col-sm-6">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="gname" placeholder="Parent Name">
+                                                <input type="text" class="form-control border-0" id="gname" placeholder="Parent Name" name="parent_name">
                                                 <label for="gname">Parent Name</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-floating">
-                                                <input type="email" class="form-control border-0" id="gmail" placeholder="Email">
+                                                <input type="email" class="form-control border-0" id="gmail" placeholder="Email" name="email">
                                                 <label for="gmail">Email</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="cname" placeholder="Password">
+                                                <input type="password" class="form-control border-0" id="cname" placeholder="Password" name =password>
                                                 <label for="cname">Password</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control border-0" id="cage" placeholder="Confirm Password">
+                                                <input type="password" class="form-control border-0" id="cage" placeholder="Confirm Password" name="confirm">
                                                 <label for="cage">Confirm Password</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-floating">
-                                                <input type="date" class="form-control border-0" id="cage" placeholder="Birthday">
+                                                <input type="date" class="form-control border-0" id="cage" placeholder="Birthday" name="birthday">
                                                 <label for="cage">Birthday</label>
                                             </div>
                                         </div>
@@ -147,6 +206,7 @@
                 </div>
             </div>
         </div>
+    </form>
         <!-- Appointment End -->
 
 
