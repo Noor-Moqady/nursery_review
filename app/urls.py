@@ -11,7 +11,8 @@ urlpatterns = [
     path('login',views.login),
     path('logout',views.logout),
     path('addnursery',views.addnursery),
-    path('nursery/<int:id>', views.specific_nursery)
+    path('nursery/<int:id>', views.specific_nursery),
+    path('delete/<int:id>', views.delete_nursery)
     
 
 ]

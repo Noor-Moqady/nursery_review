@@ -21,6 +21,7 @@ def registration_form(request):
                 user=User.objects.create(parent_name=request.POST['parent_name'], email=request.POST['email'],password=pw_hash, birthday=request.POST['birthday'],user_roles=Roles.objects.get(pk=2))
                 request.session['logged_user_parentname']=user.parent_name
                 request.session['logged_user_id']=user.id
+                
             else:
                 password = request.POST['password']
                 pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -39,6 +40,8 @@ def welcome(request):
         return redirect('/register')
     else:
         context = {
+        'allfacilities': Facilities.objects.all(),
+        'alloprograms' :Programs.objects.all(),
        'allnurseries': Nursery.objects.all(),
        'specific_user': User.objects.get(id=request.session['logged_user_id'])
                }
@@ -85,8 +88,16 @@ def render_contactus(request):
         return render (request, "contact.html")
 
 def addnursery(request):
-    print (request.POST.getlist('facilities'))
-    specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], facilities= request.POST.getlist('facilities'),program_offered=request.POST.getlist('program_offered'), contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+    specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+    specific_facilities= request.POST.getlist('facilities')
+    specific_program= request.POST.getlist('program_offered')
+    for fac in specific_facilities:
+        Facility= Facilities.objects.get(id=int(fac))
+        specific_nursery.facilities.add(Facility)
+    
+    for prog in specific_program:
+        program=Programs.objects.get(id=int(prog))
+        specific_nursery.program_offered.add(program)
     
     return redirect('/')
 
@@ -95,9 +106,16 @@ def specific_nursery(request, id):
         messages.error(request,"You have to login first")
         return redirect('/register')
     else:
-        return render (request, "nursery.html")
+        context={
+            'specific_nursery': Nursery.objects.get(id=id)
+
+        }
+        return render (request, "nursery.html", context)
 
 
 
-
+def delete_nursery(request,id):
+    this_nursery=Nursery.objects.get(id=int(id))
+    this_nursery.delete()
+    return redirect('/')
    

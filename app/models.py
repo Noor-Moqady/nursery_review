@@ -47,10 +47,22 @@ class Location(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class Facilities(models.Model):
+    facilities_name = models.CharField(max_length=225)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Programs(models.Model):
+    program_offered_name = models.CharField(max_length=225)
+    childage_min = models.IntegerField(null=True)
+    childage_max = models.IntegerField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class Nursery(models.Model):
     nursery_name = models.CharField(max_length=225)
-    facilities = models.CharField(max_length=225)
-    program_offered = models.CharField(max_length=225)
+    facilities = models.ManyToManyField(Facilities, related_name='nursery')
+    program_offered = models.ManyToManyField(Programs, related_name='nursery')
     contact_number = models.IntegerField()
     nursery_location = models.TextField(null = True)
     # nursery_location = models.ForeignKey(Location, related_name ='nursery', on_delete = models.CASCADE)
@@ -65,13 +77,6 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class Nursery_section(models.Model):
-    section_name = models.CharField(max_length=225)
-    childage_min = models.IntegerField()
-    childage_max = models.IntegerField()
-    nursery_section= models.ManyToManyField(Nursery, related_name='nursery_seciton')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
 class Rating(models.Model):
     rating = models.TextField()

@@ -39,7 +39,44 @@
 </head>
 
 <body>
+
+<!-- Messenger Chat plugin Code -->
+<div id="fb-root"></div>
+
+<!-- Your Chat plugin code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+<script>
+  var chatbox = document.getElementById('fb-customer-chat');
+  chatbox.setAttribute("page_id", "210840512103500");
+  chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+<!-- Your SDK code -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      xfbml            : true,
+      version          : 'v18.0'
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
     <h3 >Welcome, {{request.session.logged_user_parent_name}}!<span><a href="/logout">Log Out</a></span></h1>
+       
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -139,29 +176,42 @@
                             
                             <div class="team-item position-relative">
                                 <img class="img-fluid rounded-circle w-75" src="{% static 'img/nursery.jpg' %}" alt="">
-                                
+
                                 <div class="team-text">
+
                                     <h3><a href="/nursery/{{nursery.id}}">{{nursery.nursery_name}}</a></h3>
-                                    <p>Phon: {{nursery.contact_number}}</p>
-                                    <p>facilities: {{nursery.facilities}}</p>
+                                    <p>Phone: {{nursery.contact_number}}</p>
+                                    <p>Location: {{nursery.nursery_location}}</p>
                                     <div class="d-flex align-items-center">
-                                        <a class="btn btn-square btn-primary mx-1" href="facebook.com"><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-primary  mx-1" href="twitter.com"><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-primary  mx-1" href="instagram.com"><i class="fab fa-instagram"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
                                     </div>
+                                    {% if specific_user.user_roles.id  == 1 %}
+                                    <form action="/delete/{{nursery.id}}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary w-100 py-3 delete" type="submit">Delete</button>
+                                    </form>
+                                    {%else%}
+                                    <div></div>
+                                    {% endif %}
                                 </div>
                                 
                             </div>
-                            
+                            <a href="/nursery/{{nursery.id}}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">{{nursery.nursery_name}} Reviews<i class="fa fa-arrow-right ms-3"></i></a>
+
                         </div>
+
+                        
                         {% endfor %}
                     </div>
                     
             </div>
         </div>
         
-
+        
         <div>
+            {% if specific_user.user_roles.id  == 1 %}
             <form action="/addnursery" method="POST">
                 {% csrf_token %}
                 <div class="container-xxl py-5">
@@ -179,36 +229,37 @@
                                                         <label for="nursery_name">Nursery Name</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <label for="facilities" class="form-label">Facilities</label>
-                                                        <select class="form-select" id="facilities" name="facilities" multiple>
-                                                            <option value="Positive Learning">Positive Learning</option>
-                                                            <option value="Healthy Canteen">Healthy Canteen</option>
-                                                            <option value="Playground">Playground</option>
-                                                            <option value="School Bus">School Bus</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <label for="cname">Program Offered</label>
-                                                        <select class="form-select" name="program_offered" multiple>
-                                                            <option value="Art & Drawing">Art & Drawing</option>
-                                                            <option value="Color Management">Color Management</option>
-                                                            <option value="Athletic & Dance">Athletic & Dance</option>
-                                                            <option value="Language & Speaking">Language & Speaking</option>
-                                                            <option value="Religion & History">Religion & History</option>
-                                                            <option value="General Knowledge">General Knowledge</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
+                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
                                                         <input type="number" class="form-control border-0" id="cage" placeholder="Contact Number" name="contact_number">
                                                         <label for="cage">Contact Number</label>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <label for="facilities" class="form-label">Facilities</label>
+                                                        
+                                                        <select class="form-select" id="facilities" name="facilities" multiple>
+                                                            {% for facility in allfacilities%}
+                                                            <option value="{{facility.id}}">{{facility.facilities_name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-floating">
+                                                        <label for="cname">Program Offered</label>
+                                                       
+                                                        <select class="form-select" name="program_offered" multiple>
+                                                            {% for program in alloprograms %}
+                                                            <option value="{{program.id}}">{{program.program_offered_name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+                                               
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
                                                         <input type="text" class="form-control border-0" id="cage" placeholder="Nursery Location" name="nursery_location">
@@ -238,9 +289,13 @@
                 </div>
                
             </form>
-
+            
+            {%else%}
+            <div></div>
+            {% endif %}
+            
         </div>
-
+        
 
         <!-- Team End -->
  <!-- Footer Start -->
