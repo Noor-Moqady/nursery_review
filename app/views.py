@@ -42,7 +42,7 @@ def welcome(request):
        'allnurseries': Nursery.objects.all(),
        'specific_user': User.objects.get(id=request.session['logged_user_id'])
                }
-    return render(request,"nurseries.html")
+    return render(request,"nurseries.html", context)
     
 
 def login(request):
@@ -74,10 +74,24 @@ def render_nursery(request):
     return render (request, "index.html")
 
 def render_aboutus(request):
-    return render (request, "about.html")
+    if not 'logged_user_id' in request.session:
+        messages.error(request,"You have to login first")
+        return redirect('/register')
+    else:
+        return render (request, "about.html")
 
 def render_contactus(request):
-    return render (request, "contact.html")
+    if not 'logged_user_id' in request.session:
+        messages.error(request,"You have to login first")
+        return redirect('/register')
+    else:
+        return render (request, "contact.html")
 
 def addnursery(request):
-    specific_nursery = Nursery
+    specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], facilities= request.POST['facilities'],program_offered=request.POST['program_offered'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+    return redirect('/')
+
+
+
+
+   

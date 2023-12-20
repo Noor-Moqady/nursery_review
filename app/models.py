@@ -52,7 +52,8 @@ class Nursery(models.Model):
     facilities = models.CharField(max_length=225)
     program_offered = models.CharField(max_length=225)
     contact_number = models.IntegerField()
-    nursery_location = models.ForeignKey(Location, related_name ='nursery', on_delete = models.CASCADE)
+    nursery_location = models.TextField(null = True)
+    # nursery_location = models.ForeignKey(Location, related_name ='nursery', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

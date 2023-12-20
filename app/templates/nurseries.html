@@ -123,34 +123,41 @@
 
 
         <!-- Team Start -->
+        
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Nurseries list</h1>
                     <p>The best nurseries provide a rich tapestry of educational programs, tailored activities, and an inclusive atmosphere that champions diversity and celebrates individuality. Beyond education, they prioritize open communication with parents, cultivating partnerships that support a child's development both at nursery and home. Ultimately, the best nursery is not just a place of care, but a cornerstone where fond memories are created, foundations are laid, and futures are shaped.</p>
                 </div>
-                {% for nursery in allnurseies%}
+                
+                
                     <div class="row g-4">
+                        {% for nursery in allnurseries%}
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            
                             <div class="team-item position-relative">
                                 <img class="img-fluid rounded-circle w-75" src="static/img/team-1.jpg" alt="">
+                                
                                 <div class="team-text">
-                                    <h3>Name: {{nursery.nursery_name}}</h3>
-                                    <p>Contact Number: {{nursery.contact_number}}</p>
+                                    <h3><a href="/nursery/{{nursery.id}}">{{nursery.nursery_name}}</a></h3>
+                                    <p>Phon: {{nursery.contact_number}}</p>
                                     <div class="d-flex align-items-center">
                                         <a class="btn btn-square btn-primary mx-1" href="facebook.com"><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-primary  mx-1" href="teitter.com"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="twitter.com"><i class="fab fa-twitter"></i></a>
                                         <a class="btn btn-square btn-primary  mx-1" href="instagram.com"><i class="fab fa-instagram"></i></a>
                                     </div>
                                 </div>
+                                
                             </div>
+                            
                         </div>
-                    
+                        {% endfor %}
                     </div>
-                {% endfor %}
+                    
             </div>
         </div>
-
+        
 
         <div>
             <form action="/addnursery" method="POST">
@@ -167,31 +174,43 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
                                                         <input type="text" class="form-control border-0" id="gname" placeholder="Nursery Name" name="nursery_name">
-                                                        <label for="nursery_name">nursery_name</label>
+                                                        <label for="nursery_name">Nursery Name</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
-                                                        <input type="email" class="form-control border-0" id="gmail" placeholder="Email" name="email">
-                                                        <label for="facilities">Facilities</label>
+                                                        <label for="facilities" class="form-label">Facilities</label>
+                                                        <select class="form-select" id="facilities" name="facilities" multiple>
+                                                            <option value="Positive Learning">Positive Learning</option>
+                                                            <option value="Healthy Canteen">Healthy Canteen</option>
+                                                            <option value="Playground">Playground</option>
+                                                            <option value="School Bus">School Bus</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
-                                                        <input type="password" class="form-control border-0" id="cname" placeholder="Password" name =password>
-                                                        <label for="cname">program_offered</label>
+                                                        <label for="cname">Program Offered</label>
+                                                        <select class="form-select" name="program_offered" multiple>
+                                                            <option value="Art & Drawing">Art & Drawing</option>
+                                                            <option value="Color Management">Color Management</option>
+                                                            <option value="Athletic & Dance">Athletic & Dance</option>
+                                                            <option value="Language & Speaking">Language & Speaking</option>
+                                                            <option value="Religion & History">Religion & History</option>
+                                                            <option value="General Knowledge">General Knowledge</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
-                                                        <input type="password" class="form-control border-0" id="cage" placeholder="Confirm Password" name="confirm">
-                                                        <label for="cage">contact_number</label>
+                                                        <input type="number" class="form-control border-0" id="cage" placeholder="Contact Number" name="contact_number">
+                                                        <label for="cage">Contact Number</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
-                                                        <input type="date" class="form-control border-0" id="cage" placeholder="Birthday" name="birthday">
-                                                        <label for="cage">nursery_location</label>
+                                                        <input type="text" class="form-control border-0" id="cage" placeholder="Nursery Location" name="nursery_location">
+                                                        <label for="cage">Nursery Location</label>
                                                     </div>
                                                 </div>
                                                
@@ -204,14 +223,20 @@
                                 </div>
                                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                                     <div class="position-relative h-100">
-                                        <img class="position-absolute w-100 h-100 rounded" src="static/img/create_nursery.jpg" style="object-fit: cover;">
+                                        <iframe class="position-relative rounded w-100 h-100"
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12709.124660138296!2d35.2115154!3d31.7683193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d98ebf40bf7f%3A0x9cebc3e3e74ea906!2sPalestine!5e0!3m2!1sen!2sil!4v1608726094000!5m2!1sen!2sil"
+                                            frameborder="0" style="min-height: 400px; border:0;" allowfullscreen="" aria-hidden="false"
+                                            tabindex="0"></iframe>
+                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+               
             </form>
+
         </div>
 
 
