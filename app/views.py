@@ -70,9 +70,6 @@ def logout(request):
     return redirect('/register')
 
 
-def render_nursery(request):
-    return render (request, "index.html")
-
 def render_aboutus(request):
     if not 'logged_user_id' in request.session:
         messages.error(request,"You have to login first")
@@ -88,8 +85,17 @@ def render_contactus(request):
         return render (request, "contact.html")
 
 def addnursery(request):
-    specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], facilities= request.POST['facilities'],program_offered=request.POST['program_offered'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+    print (request.POST.getlist('facilities'))
+    specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], facilities= request.POST.getlist('facilities'),program_offered=request.POST.getlist('program_offered'), contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+    
     return redirect('/')
+
+def specific_nursery(request, id):
+    if not 'logged_user_id' in request.session:
+        messages.error(request,"You have to login first")
+        return redirect('/register')
+    else:
+        return render (request, "nursery.html")
 
 
 
