@@ -40,6 +40,17 @@
 </head>
 
 <body>
+    <!-- VALIDATIONPART ###########################################################################-->
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+<!-- VALIDATIONPART ###########################################################################-->
+
+
 <!-- Messenger Chat plugin Code -->
 <div id="fb-root"></div>
 
@@ -576,48 +587,67 @@
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Our Clients Say!</h1>
-                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <p>Our clients speak volumes about their experiences. Their words echo satisfaction, trust, and appreciation for the personalized care and exceptional services they receive. Discover what they have to say about their journey with us.</p>
                 </div>
+                
                 <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                    {% for review in specific_nursery.review.all%}
                     <div class="testimonial-item bg-light rounded p-5">
-                        <p class="fs-5">Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center bg-white me-n5" style="border-radius: 50px 0 0 50px;">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-1.jpg' %}" style="width: 90px; height: 90px;">
                             <div class="ps-3">
-                                <h3 class="mb-1">Client Name</h3>
-                                <span>Profession</span>
+                                <h3 class="mb-1">{{review.uploaded_by.parent_name}} said:</h3>
                             </div>
                             <i class="fa fa-quote-right fa-3x text-primary ms-auto d-none d-sm-flex"></i>
+                        </div> 
+                        <p class="fs-5">{{review.review}}</p>
+                        {% if request.session.logged_user_parent_name == review.uploaded_by.parent_name %}
+                        <div class="d-flex pt-2>">
+                            <a href="/update/{{review.id}}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Update<i class="fa fa-arrow-right ms-3"></i></a>
+                            <a href="/delete/{{review.id}}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Delete<i class="fa fa-arrow-right ms-3"></i></a>
+
                         </div>
+                        {% endif %}
                     </div>
-                    <div class="testimonial-item bg-light rounded p-5">
-                        <p class="fs-5">Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                        <div class="d-flex align-items-center bg-white me-n5" style="border-radius: 50px 0 0 50px;">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-2.jpg' %}" style="width: 90px; height: 90px;">
-                            <div class="ps-3">
-                                <h3 class="mb-1">Client Name</h3>
-                                <span>Profession</span>
-                            </div>
-                            <i class="fa fa-quote-right fa-3x text-primary ms-auto d-none d-sm-flex"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded p-5">
-                        <p class="fs-5">Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
-                        <div class="d-flex align-items-center bg-white me-n5" style="border-radius: 50px 0 0 50px;">
-                            <img class="img-fluid flex-shrink-0 rounded-circle" src="{% static 'img/testimonial-3.jpg' %}" style="width: 90px; height: 90px;">
-                            <div class="ps-3">
-                                <h3 class="mb-1">Client Name</h3>
-                                <span>Profession</span>
-                            </div>
-                            <i class="fa fa-quote-right fa-3x text-primary ms-auto d-none d-sm-flex"></i>
-                        </div>
-                    </div>
+                    {% endfor %} 
+                    <div ></div>
                 </div>
+                
+                 
+                
+                
             </div>
         </div>
 
         <!-- Testimonial End -->
-
+        
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="bg-light rounded">
+                        <div class="row g-0">
+                            
+                                <div class="h-100 d-flex flex-column justify-content-center p-5">
+                                    <h1 class="mb-4">Add Your Review</h1>
+                                    <form action="/review/{{specific_nursery.id}}" method="POST">
+                                        {% csrf_token %}
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <textarea name="review" class="form-control border-0" placeholder="Leave Your Review Here" id="message" style="height: 100px" ></textarea>
+                                                    <label for="message">Leave Your Review Here</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
 
               <!-- Footer Start -->
  <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">

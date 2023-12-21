@@ -40,6 +40,19 @@
 
 <body>
 
+<!-- VALIDATIONPART ###########################################################################-->
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+<!-- VALIDATIONPART ###########################################################################-->
+
+
+
+
 <!-- Messenger Chat plugin Code -->
 <div id="fb-root"></div>
 
@@ -221,7 +234,7 @@
                                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                                     <div class="h-100 d-flex flex-column justify-content-center p-5">
                                         <h1 class="mb-4">Create Nursery</h1>
-                                        <form>
+                                        
                                             <div class="row g-3">
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
@@ -271,7 +284,7 @@
                                                     <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
                                                 </div>
                                             </div>
-                                        </form>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">

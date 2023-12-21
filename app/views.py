@@ -101,21 +101,34 @@ def addnursery(request):
     
     return redirect('/')
 
+def addreview(request, id):
+    specific_review = Review.objects.create(review=request.POST['review'], uploaded_by=User.objects.get(id=request.session['logged_user_id']), nursery_review=Nursery.objects.get(id=int(id)))
+    return redirect('/nursery/'+str(id))
+
 def specific_nursery(request, id):
     if not 'logged_user_id' in request.session:
         messages.error(request,"You have to login first")
         return redirect('/register')
     else:
         context={
-            'specific_nursery': Nursery.objects.get(id=id)
+            'specific_nursery': Nursery.objects.get(id=id),
+            'specific_user': User.objects.get(id=request.session['logged_user_id'])
 
         }
         return render (request, "nursery.html", context)
-
-
 
 def delete_nursery(request,id):
     this_nursery=Nursery.objects.get(id=int(id))
     this_nursery.delete()
     return redirect('/')
-   
+
+def delete_review(request,id):
+    this_review=Review.objects.get(id=int(id))
+    this_review.delete()
+    return redirect('/nursery/'+str(Nursery.objects.get(id=id)))
+
+# def update_review(request,id):
+#     review=Review.objects.get(id=id)
+#     review.review=request.POST['review']
+#     review.save()
+#     return redirect('/nursery/'+str(Nursery.objects.get(id=id)))

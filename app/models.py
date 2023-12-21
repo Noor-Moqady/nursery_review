@@ -59,6 +59,16 @@ class Programs(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class NurseryManager(models.Manager):
+    def basic_validator(self, postData):
+        errors= {}
+        if len(postData['nursery_name']) < 5:
+            errors["nursery_name"] = "Nursery Name should be at least 5 characters"
+        if User.objects.filter(email=postData['nursery_name']).exists():
+            errors["nursery_name"] = "This nursery is already exists"
+        
+        return errors
+
 class Nursery(models.Model):
     nursery_name = models.CharField(max_length=225)
     facilities = models.ManyToManyField(Facilities, related_name='nursery')
@@ -68,7 +78,14 @@ class Nursery(models.Model):
     # nursery_location = models.ForeignKey(Location, related_name ='nursery', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    objects = NurseryManager()
+
+class ReviewManager(models.Manager):
+    def basic_validator(self, postData):
+        errors= {}
+        if len(postData['review']) < 15:
+            errors["review"] = "Review should be at least 15 characters" 
+        return errors
 
 class Review(models.Model):
     review = models.TextField()
@@ -76,6 +93,7 @@ class Review(models.Model):
     nursery_review = models.ForeignKey(Nursery, related_name ='review', on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = ReviewManager()
 
     
 class Rating(models.Model):
