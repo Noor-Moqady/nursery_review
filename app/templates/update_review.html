@@ -280,6 +280,7 @@
                                 <a class="d-block text-center h3 mt-3 mb-4" href="">Art & Drawing</a>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="d-flex align-items-center">
+                                        <img class="rounded-circle flex-shrink-0" src="{% static 'img/teacher.jpg' %}" alt="" style="width: 45px; height: 45px;">
                                         <div class="ms-3">
                                             <h6 class="text-primary mb-1">Jhon Doe</h6>
                                             <small>Teacher</small>
@@ -320,8 +321,9 @@
                                 <a class="d-block text-center h3 mt-3 mb-4" href="">Color Management</a>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="d-flex align-items-center">
+                                        <img class="rounded-circle flex-shrink-0" src="{% static 'img/teacher.jpg' %}" alt="" style="width: 45px; height: 45px;">
                                         <div class="ms-3">
-                                            <h6 class="text-primary mb-1">Jake Dan</h6>
+                                            <h6 class="text-primary mb-1">Jhon Doe</h6>
                                             <small>Teacher</small>
                                         </div>
                                     </div>
@@ -337,7 +339,7 @@
                                     <div class="col-4">
                                         <div class="border-top border-3 border-success pt-2">
                                             <h6 class="text-success mb-1">Time:</h6>
-                                            <small>10-11 AM</small>
+                                            <small>9-10 AM</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -360,8 +362,9 @@
                                 <a class="d-block text-center h3 mt-3 mb-4" href="">Athletic & Dance</a>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="d-flex align-items-center">
+                                        <img class="rounded-circle flex-shrink-0" src="{% static 'img/teacher.jpg' %}" alt="" style="width: 45px; height: 45px;">
                                         <div class="ms-3">
-                                            <h6 class="text-primary mb-1">Danyel jon</h6>
+                                            <h6 class="text-primary mb-1">Jhon Doe</h6>
                                             <small>Teacher</small>
                                         </div>
                                     </div>
@@ -377,7 +380,7 @@
                                     <div class="col-4">
                                         <div class="border-top border-3 border-success pt-2">
                                             <h6 class="text-success mb-1">Time:</h6>
-                                            <small>11-12 AM</small>
+                                            <small>9-10 AM</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -400,6 +403,7 @@
                                 <a class="d-block text-center h3 mt-3 mb-4" href="">Language & Speaking</a>
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="d-flex align-items-center">
+                                        <img class="rounded-circle flex-shrink-0" src="{% static 'img/teacher.jpg' %}" alt="" style="width: 45px; height: 45px;">
                                         <div class="ms-3">
                                             <h6 class="text-primary mb-1">Jhon Doe</h6>
                                             <small>Teacher</small>
@@ -417,7 +421,7 @@
                                     <div class="col-4">
                                         <div class="border-top border-3 border-success pt-2">
                                             <h6 class="text-success mb-1">Time:</h6>
-                                            <small>12-1 PM</small>
+                                            <small>9-10 AM</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -458,7 +462,7 @@
                                     <div class="col-4">
                                         <div class="border-top border-3 border-success pt-2">
                                             <h6 class="text-success mb-1">Time:</h6>
-                                            <small>1-2 PM</small>
+                                            <small>9-10 AM</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -499,7 +503,7 @@
                                     <div class="col-4">
                                         <div class="border-top border-3 border-success pt-2">
                                             <h6 class="text-success mb-1">Time:</h6>
-                                            <small>2-3 PM</small>
+                                            <small>9-10 AM</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -640,11 +644,11 @@
                             
                                 <div class="h-100 d-flex flex-column justify-content-center p-5">
                                     <h1 class="mb-4">Add Your Review</h1>
-                                    <form action="/review/{{specific_nursery.id}}" method="POST">
+                                    <form action="/update/{{specific_review.id}}" method="POST">
                                         {% csrf_token %}
                                             <div class="col-12">
                                                 <div class="form-floating">
-                                                    <textarea name="review" class="form-control border-0" placeholder="Leave Your Review Here" id="message" style="height: 100px" ></textarea>
+                                                    <textarea name="review" class="form-control border-0" placeholder="Leave Your Review Here" id="message" style="height: 100px" >{{specific_review.review}}</textarea>
                                                     <label for="message">Leave Your Review Here</label>
                                                 </div>
                                             </div>

@@ -105,6 +105,12 @@ def addreview(request, id):
     specific_review = Review.objects.create(review=request.POST['review'], uploaded_by=User.objects.get(id=request.session['logged_user_id']), nursery_review=Nursery.objects.get(id=int(id)))
     return redirect('/nursery/'+str(id))
 
+def delete_review(request, id2):
+    specific_review = Review.objects.get(id=int(id2)) 
+    associated_nursery_id = specific_review.nursery_review.id 
+    specific_review.delete() 
+    return redirect('/nursery/'+str(associated_nursery_id))  
+
 def specific_nursery(request, id):
     if not 'logged_user_id' in request.session:
         messages.error(request,"You have to login first")
@@ -117,18 +123,63 @@ def specific_nursery(request, id):
         }
         return render (request, "nursery.html", context)
 
-def delete_nursery(request,id):
-    this_nursery=Nursery.objects.get(id=int(id))
-    this_nursery.delete()
-    return redirect('/')
+# def delete_nursery(request,id):
+#     specific_nursery=Nursery.objects.get(id=int(id))
+#     specific_nursery.delete()
+#     return redirect('/')
 
-def delete_review(request,id):
-    this_review=Review.objects.get(id=int(id))
-    this_review.delete()
-    return redirect('/nursery/'+str(Nursery.objects.get(id=id)))
 
-# def update_review(request,id):
-#     review=Review.objects.get(id=id)
-#     review.review=request.POST['review']
-#     review.save()
-#     return redirect('/nursery/'+str(Nursery.objects.get(id=id)))
+def update_review(request,id):
+    if not 'logged_user_id' in request.session:
+        messages.error(request,"You have to login first")
+        return redirect('/')
+    else:
+        if request.method == 'GET':
+            context={
+            'specific_review': Review.objects.get(id=id)
+        }
+            return render(request,"update_review.html", context)
+        if request.method == 'POST':
+# VA    LIDATION PART############################################################################################################################################################################################################################################################
+            errors = Review.objects.basic_validator(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect('/')
+            else:
+                specific_review=Review.objects.get(id=id)
+                specific_review.review=request.POST['review']
+                specific_review.save()
+            return redirect('/')
+        
+def update_nursery(request,id):
+    if not 'logged_user_id' in request.session:
+        messages.error(request,"You have to login first")
+        return redirect('/')
+    else:
+        if request.method == 'GET':
+            context = {
+            'allfacilities': Facilities.objects.all(),
+            'alloprograms' :Programs.objects.all(),
+            'allnurseries': Nursery.objects.all(),
+            'specific_nursery':Nursery.objects.get(id=id),
+            'specific_user': User.objects.get(id=request.session['logged_user_id'])
+               }
+            return render(request,"update_nursery.html", context)
+        if request.method == 'POST':
+# VA    LIDATION PART############################################################################################################################################################################################################################################################
+            errors = Nursery.objects.basic_validator(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect('/')
+            else:
+                specific_nursery=Nursery.objects.get(id=id)
+                specific_nursery.nursery_name=request.POST['nursery_name']
+                specific_nursery.contact_number=request.POST['contact_number']
+                specific_nursery.nursery_location=request.POST['nursery_location']
+                specific_nursery.image=request.POST['image']
+                specific_nursery.save()
+            return redirect('/')
+            
+

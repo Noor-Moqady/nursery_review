@@ -73,9 +73,9 @@ class Nursery(models.Model):
     nursery_name = models.CharField(max_length=225)
     facilities = models.ManyToManyField(Facilities, related_name='nursery')
     program_offered = models.ManyToManyField(Programs, related_name='nursery')
-    contact_number = models.IntegerField()
+    contact_number = models.CharField(max_length=225)
     nursery_location = models.TextField(null = True)
-    # nursery_location = models.ForeignKey(Location, related_name ='nursery', on_delete = models.CASCADE)
+    image= models.TextField(null = True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = NurseryManager()
@@ -95,11 +95,4 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = ReviewManager()
 
-    
-class Rating(models.Model):
-    rating = models.TextField()
-    uploaded_by = models.ForeignKey(User, related_name ='rating', on_delete = models.CASCADE)
-    nursery_rating = models.ForeignKey(Nursery, related_name ='rating', on_delete = models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
