@@ -123,10 +123,10 @@ def specific_nursery(request, id):
         }
         return render (request, "nursery.html", context)
 
-# def delete_nursery(request,id):
-#     specific_nursery=Nursery.objects.get(id=int(id))
-#     specific_nursery.delete()
-#     return redirect('/')
+def delete_nursery(request,id):
+    specific_nursery=Nursery.objects.get(id=int(id))
+    specific_nursery.delete()
+    return redirect('/')
 
 
 def update_review(request,id):

@@ -257,6 +257,14 @@
                                         {%else%}
                                         <div></div>
                                         {% endif %}
+                                        {% if specific_user.user_roles.id  == 1 %}
+                                        <form action="/deletenursery/{{nursery.id}}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block" type="submit">Delete</button>
+                                        </form>
+                                        {%else%}
+                                        <div></div>
+                                        {% endif %}
                                     </div>
 
                                 </div>

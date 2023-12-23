@@ -13,8 +13,8 @@ urlpatterns = [
     path('addnursery',views.addnursery),
     path('updatenursery/<int:id>',views.update_nursery),
     path('nursery/<int:id>', views.specific_nursery),
-    # path('delete/<int:id>', views.delete_nursery),
+    path('deletenursery/<int:id>', views.delete_nursery),
     path('review/<int:id>', views.addreview),
-    # path('delete/<int:id2>', views.delete_review),
+    path('delete/<int:id2>', views.delete_review),
     path('update/<int:id>', views.update_review)
 ]
