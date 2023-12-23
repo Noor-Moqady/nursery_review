@@ -1,6 +1,8 @@
 
 from django.urls import path
 from.import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     
@@ -17,4 +19,8 @@ urlpatterns = [
     path('review/<int:id>', views.addreview),
     path('delete/<int:id2>', views.delete_review),
     path('update/<int:id>', views.update_review)
-]
+] 
+
+
+
+

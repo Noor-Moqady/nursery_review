@@ -219,58 +219,6 @@
         <!-- Carousel End -->
 
 
-    
-
-
-     <!--Team Start-->   
-        
-        <!-- <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="mb-3">Nurseries list</h1>
-                    <p>The best nurseries provide a rich tapestry of educational programs, tailored activities, and an inclusive atmosphere that champions diversity and celebrates individuality. Beyond education, they prioritize open communication with parents, cultivating partnerships that support a child's development both at nursery and home. Ultimately, the best nursery is not just a place of care, but a cornerstone where fond memories are created, foundations are laid, and futures are shaped.</p>
-                </div>
-                
-                
-                    <div class="row g-4">
-                        {% for nursery in allnurseries%}
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            
-                            <div class="team-item position-relative">
-                                <img class="img-fluid rounded-circle w-75" src="{% static 'img/nursery.jpg' %}" alt="">
-
-                                <div class="team-text">
-
-                                    <h3><a href="/nursery/{{nursery.id}}">{{nursery.nursery_name}}</a></h3>
-                                    <p>Phone: {{nursery.contact_number}}</p>
-                                    <p style="display:none" class="loc_info">{{nursery.nursery_location}}</p>
-                                    <p class="address_info"></p>
-                                    <div class="d-flex align-items-center">
-                                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-primary  mx-1" href="https://www.twitter.com"><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-primary  mx-1" href="https://www.instagram.com"><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                    {% if specific_user.user_roles.id  == 1 %}
-                                    <form action="/delete/{{nursery.id}}">
-                                    {% csrf_token %}
-                                    <button class="btn btn-primary w-100 py-3 delete" type="submit">Delete</button>
-                                    </form>
-                                    {%else%}
-                                    <div></div>
-                                    {% endif %}
-                                </div>
-                                
-                            </div>
-                            <a href="/nursery/{{nursery.id}}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">{{nursery.nursery_name}} Reviews<i class="fa fa-arrow-right ms-3"></i></a>
-
-                        </div>
-
-                        
-                        {% endfor %}
-                    </div>
-                    
-            </div>
-        </div> -->
         
         
         <div>
@@ -299,35 +247,52 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <label for="facilities" class="form-label">Facilities</label>
-                                                        
-                                                        <select class="form-select chosen-select" id="facilities" name="facilities" multiple>
-                                                            {% for facility in allfacilities%}
-                                                            <option value="{{facility.id}}">{{facility.facilities_name}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                        
-                                                    </div>
+                                                    <!-- <div class="form-floating">
+                                                        <label for="facilities">Facilities</label> -->
+
+                                                    <select class="form-select chosen-select"
+                                                        data-placeholder="Facilities" id="facilities" name="facilities"
+                                                        multiple>
+                                                        {% for facility in allfacilities%}
+                                                        <option value="{{facility.id}}">{{facility.facilities_name}}
+                                                        </option>
+                                                        {% endfor %}
+                                                    </select>
+
+                                                    <!-- </div> -->
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <label for="cname">Program Offered</label>
-                                                       
-                                                        <select class="form-select chosen-select" name="program_offered" multiple>
-                                                            {% for program in alloprograms %}
-                                                            <option value="{{program.id}}">{{program.program_offered_name}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                        
-                                                    </div>
+                                                    <!-- <div class="form-floating">
+                                                        <label for="cname">Program Offered</label> -->
+
+                                                    <select class="form-select chosen-select"
+                                                        data-placeholder="Program Offered" name="program_offered"
+                                                        multiple>
+                                                        {% for program in alloprograms %}
+                                                        <option value="{{program.id}}">{{program.program_offered_name}}
+                                                        </option>
+                                                        {% endfor %}
+                                                    </select>
+
+                                                    <!-- </div> -->
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control border-0" id="nursery_image" placeholder="Nursery Image" name="image" value="{{specific_nursery.image}}">
-                                                        <label for="cage">Nursery Image</label>
+                                                <div class="form-floating">
+                                                    <!-- <input type="text" class="form-control border-0" id="nursery_image" placeholder="Nursery Image" name="image"> -->
+                                                    <!-- <input type="file" name="avatar" accept="image/*">
+                                                    <label for="cage">Nursery Image</label> -->
+                                                    <div class="form-group">
+                                                        <label for="imageUpload" class="small">Upload Image</label>
+                                                        <input type="file" class="form-control-file form-control-sm" name="avatar" id="imageUpload" accept="image/*">
                                                     </div>
+                                                
                                                 </div>
+<!-- 
+                                                {% if specific_nursery.avatar %}
+                                                <img class="team-text" src="{{ specific_nursery.avatar.url }}" alt="Nursery Image">
+                                                {% else %}
+                                                <p>No image available.</p>
+                                                {% endif %} -->
+
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
                                                         <input type="text" class="form-control border-0" id="nursery_location" placeholder="Nursery Location" name="nursery_location" value="{{specific_nursery.nursery_location}}">

@@ -95,7 +95,10 @@ def addnursery(request):
                     messages.error(request, value)
                 return redirect('/')
             else:
-                specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+                
+                avatar = request.FILES.get('avatar', None)
+                print(avatar)
+                specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'], avatar=avatar)
                 specific_facilities= request.POST.getlist('facilities')
                 specific_program= request.POST.getlist('program_offered')
                 for fac in specific_facilities:
@@ -192,7 +195,7 @@ def update_nursery(request,id):
                 specific_nursery.nursery_name=request.POST['nursery_name']
                 specific_nursery.contact_number=request.POST['contact_number']
                 specific_nursery.nursery_location=request.POST['nursery_location']
-                specific_nursery.image=request.POST['image']
+                specific_nursery.avatar=request.FILES.get('avatar', None)
                 specific_nursery.save()
             return redirect('/')
             

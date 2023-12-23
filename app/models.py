@@ -3,7 +3,15 @@ from datetime import datetime
 from time import gmtime, strftime
 from django.utils import timezone
 import re
+import uuid
 import bcrypt
+
+
+def random_image_filename(instance, filename):
+    ext = filename.split('.')[-1]
+    random_filename = uuid.uuid4()
+    return f'images/{random_filename}.{ext}'
+
 
 class Roles(models.Model):
     roles_name = models.CharField(max_length=225)
@@ -76,7 +84,7 @@ class Nursery(models.Model):
     contact_number = models.CharField(max_length=225)
     nursery_location = models.TextField(null = True)
     image= models.TextField(null = True)
-    avatar= models.ImageField(upload_to='images/', null=True)
+    avatar= models.ImageField(upload_to=random_image_filename, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = NurseryManager()
