@@ -88,22 +88,36 @@ def render_contactus(request):
         return render (request, "contact.html")
 
 def addnursery(request):
-    specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
-    specific_facilities= request.POST.getlist('facilities')
-    specific_program= request.POST.getlist('program_offered')
-    for fac in specific_facilities:
-        Facility= Facilities.objects.get(id=int(fac))
-        specific_nursery.facilities.add(Facility)
+    # VALIDATION PART############################################################################################################################################################################################################################################################
+            errors = Nursery.objects.basic_validator(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect('/')
+            else:
+                specific_nursery = Nursery.objects.create(nursery_name= request.POST['nursery_name'], contact_number=request.POST['contact_number'], nursery_location=request.POST['nursery_location'])
+                specific_facilities= request.POST.getlist('facilities')
+                specific_program= request.POST.getlist('program_offered')
+                for fac in specific_facilities:
+                    Facility= Facilities.objects.get(id=int(fac))
+                    specific_nursery.facilities.add(Facility)
+
+                for prog in specific_program:
+                    program=Programs.objects.get(id=int(prog))
+                    specific_nursery.program_offered.add(program)
     
-    for prog in specific_program:
-        program=Programs.objects.get(id=int(prog))
-        specific_nursery.program_offered.add(program)
-    
-    return redirect('/')
+            return redirect('/')
 
 def addreview(request, id):
-    specific_review = Review.objects.create(review=request.POST['review'], uploaded_by=User.objects.get(id=request.session['logged_user_id']), nursery_review=Nursery.objects.get(id=int(id)))
-    return redirect('/nursery/'+str(id))
+    # VALIDATION PART############################################################################################################################################################################################################################################################
+            errors = Review.objects.basic_validator(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect('/')
+            else:
+                specific_review = Review.objects.create(review=request.POST['review'], uploaded_by=User.objects.get(id=request.session['logged_user_id']), nursery_review=Nursery.objects.get(id=int(id)))
+            return redirect('/nursery/'+str(id))
 
 def delete_review(request, id2):
     specific_review = Review.objects.get(id=int(id2)) 

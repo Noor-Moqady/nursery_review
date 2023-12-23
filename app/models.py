@@ -76,6 +76,7 @@ class Nursery(models.Model):
     contact_number = models.CharField(max_length=225)
     nursery_location = models.TextField(null = True)
     image= models.TextField(null = True)
+    avatar= models.ImageField(upload_to='images/', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = NurseryManager()

@@ -116,7 +116,7 @@ function msg(event, element) {
     event.preventDefault();
 
     //work
-    openConfirmDialog('test1', 'test2 loooong message')
+    openConfirmDialog('Appointment successfully made!', ' We will contact you as soon as possible!')
     //alert("Appointment successfully made! we will contact you as soon as possible!");
 
 
