@@ -502,3 +502,7 @@ h6,
     padding-right: 0;
     border-right: none;
 }
+
+.team-item{
+    margin-bottom: 8px;
+}

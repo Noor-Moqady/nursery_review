@@ -308,28 +308,28 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <label for="facilities">Facilities</label>
+                                                    <!-- <div class="form-floating">
+                                                        <label for="facilities">Facilities</label> -->
                                                         
-                                                        <select class="form-select chosen-select" id="facilities" name="facilities" multiple>
+                                                        <select class="form-select chosen-select" data-placeholder="Facilities" id="facilities" name="facilities" multiple>
                                                             {% for facility in allfacilities%}
                                                             <option value="{{facility.id}}">{{facility.facilities_name}}</option>
                                                             {% endfor %}
                                                         </select>
                                                         
-                                                    </div>
+                                                    <!-- </div> -->
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <label for="cname">Program Offered</label>
+                                                    <!-- <div class="form-floating">
+                                                        <label for="cname">Program Offered</label> -->
                                                        
-                                                        <select class="form-select chosen-select" name="program_offered" multiple>
+                                                        <select class="form-select chosen-select" data-placeholder="Program Offered" name="program_offered" multiple>
                                                             {% for program in alloprograms %}
                                                             <option value="{{program.id}}">{{program.program_offered_name}}</option>
                                                             {% endfor %}
                                                         </select>
                                                         
-                                                    </div>
+                                                    <!-- </div> -->
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-floating">
@@ -449,7 +449,9 @@
  <script src="{% static 'js/mapScript.js' %}"></script>
 <script>
     $(document).ready(function() {
-  $('.chosen-select').chosen();
+        $('.chosen-select').chosen();
+
+  
 });
 </script>
  

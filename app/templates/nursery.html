@@ -33,6 +33,13 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}"  rel="stylesheet">
     
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
     
@@ -535,13 +542,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-floating">
                                                 <input type="text" class="form-control border-0" id="gname" placeholder="Gurdian Name">
-                                                <label for="gname">Gurdian Name</label>
+                                                <label for="gname">Parent Name</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-floating">
                                                 <input type="email" class="form-control border-0" id="gmail" placeholder="Gurdian Email">
-                                                <label for="gmail">Gurdian Email</label>
+                                                <label for="gmail">Parent Email</label>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -563,7 +570,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                            <button class="btn btn-primary w-100 py-3" type="submit" onclick="msg(event, this)">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -732,7 +739,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{% static 'js/loadMapScript.js' %}"></script>
 
-
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </body>
 
 </html>
