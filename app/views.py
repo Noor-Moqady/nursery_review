@@ -195,8 +195,18 @@ def update_nursery(request,id):
                 specific_nursery.nursery_name=request.POST['nursery_name']
                 specific_nursery.contact_number=request.POST['contact_number']
                 specific_nursery.nursery_location=request.POST['nursery_location']
-                specific_nursery.avatar=request.FILES.get('avatar', None)
                 specific_nursery.save()
             return redirect('/')
             
 
+def reviews(request):
+    if not 'logged_user_id' in request.session:
+        messages.error(request,"You have to login first")
+        return redirect('/register')
+    else:
+        context = {
+       'allnurseries': Nursery.objects.all(),
+       'specific_user': User.objects.get(id=request.session['logged_user_id']),
+       'allreviews': Review.objects.all()
+               }
+    return render(request,"reviews.html", context)

@@ -159,7 +159,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-auto">
-                    <a href="/register" class="nav-item nav-link active">Home</a>
+                    <a href="/reviews" class="nav-item nav-link active">Home</a>
                     <a href="/" class="nav-item nav-link">Nurseries</a>
                     <a href="/about" class="nav-item nav-link">About Us</a>
                     <a href="/contact" class="nav-item nav-link">Contact Us</a>
@@ -167,7 +167,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="/register" class="dropdown-item">Home</a>
+                            <a href="/reviews" class="dropdown-item">Home</a>
                             <a href="/" class="dropdown-item">Nurseries</a>
                             <a href="/about" class="dropdown-item">About Us</a>
                             <a href="/contact" class="dropdown-item">Contact Us</a>
@@ -232,50 +232,53 @@
                                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                                     <div class="h-100 d-flex flex-column justify-content-center p-5">
                                         <h1 class="mb-4">Create Nursery</h1>
-                                        
-                                            <div class="row g-3">
-                                                <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control border-0" id="gname" placeholder="Nursery Name" name="nursery_name" value="{{specific_nursery.nursery_name}}">
-                                                        <label for="nursery_name">Nursery Name</label>
-                                                    </div>
-                                                </div>
-                                                 <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control border-0" id="cage" placeholder="Contact Number" name="contact_number" value="{{specific_nursery.contact_number}}">
-                                                        <label for="cage">Contact Number</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <!-- <div class="form-floating">
-                                                        <label for="facilities">Facilities</label> -->
 
-                                                    <select class="form-select chosen-select"
-                                                        data-placeholder="Facilities" id="facilities" name="facilities"
-                                                        multiple>
-                                                        {% for facility in allfacilities%}
-                                                        <option value="{{facility.id}}">{{facility.facilities_name}}
-                                                        </option>
-                                                        {% endfor %}
-                                                    </select>
-
-                                                    <!-- </div> -->
+                                        <div class="row g-3">
+                                            <div class="col-sm-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control border-0" id="gname"
+                                                        placeholder="Nursery Name" name="nursery_name" value="{{specific_nursery.nursery_name}}">
+                                                    <label for="nursery_name">Nursery Name</label>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <!-- <div class="form-floating">
-                                                        <label for="cname">Program Offered</label> -->
-
-                                                    <select class="form-select chosen-select"
-                                                        data-placeholder="Program Offered" name="program_offered"
-                                                        multiple>
-                                                        {% for program in alloprograms %}
-                                                        <option value="{{program.id}}">{{program.program_offered_name}}
-                                                        </option>
-                                                        {% endfor %}
-                                                    </select>
-
-                                                    <!-- </div> -->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control border-0" id="cage"
+                                                        placeholder="Contact Number" name="contact_number" value="{{specific_nursery.contact_number}}">
+                                                    <label for="cage">Contact Number</label>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <!-- <div class="form-floating">
+                                                    <label for="facilities">Facilities</label> -->
+
+                                                <select class="form-select chosen-select"
+                                                    data-placeholder="Facilities" id="facilities" name="facilities"
+                                                    multiple>
+                                                    {% for facility in allfacilities%}
+                                                    <option value="{{facility.id}}">{{facility.facilities_name}}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+
+                                                <!-- </div> -->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <!-- <div class="form-floating">
+                                                    <label for="cname">Program Offered</label> -->
+
+                                                <select class="form-select chosen-select"
+                                                    data-placeholder="Program Offered" name="program_offered"
+                                                    multiple>
+                                                    {% for program in alloprograms %}
+                                                    <option value="{{program.id}}">{{program.program_offered_name}}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+
+                                                <!-- </div> -->
+                                            </div>
+                                            <div class="col-sm-6">
                                                 <div class="form-floating">
                                                     <!-- <input type="text" class="form-control border-0" id="nursery_image" placeholder="Nursery Image" name="image"> -->
                                                     <!-- <input type="file" name="avatar" accept="image/*">
@@ -286,36 +289,33 @@
                                                     </div>
                                                 
                                                 </div>
-<!-- 
-                                                {% if specific_nursery.avatar %}
-                                                <img class="team-text" src="{{ specific_nursery.avatar.url }}" alt="Nursery Image">
-                                                {% else %}
-                                                <p>No image available.</p>
-                                                {% endif %} -->
-
-                                                <div class="col-sm-6">
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control border-0" id="nursery_location" placeholder="Nursery Location" name="nursery_location" value="{{specific_nursery.nursery_location}}">
-                                                        <label for="cage">Nursery Location</label>
-                                                    </div>
-                                                </div>
-                                               
-                                                <div class="col-12">
-                                                    <button class="btn btn-primary w-100 py-3" type="submit">Update</button>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-floating" >
+                                                    <input type="text" class="form-control border-0" 
+                                                        id="nursery_location" placeholder="Nursery Location"
+                                                        name="nursery_location" value="{{specific_nursery.nursery_location}}">
+                                                    <label for="cage">Nursery Location</label>
                                                 </div>
                                             </div>
-                                        
+
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100 py-3"
+                                                    type="submit">Submit</button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                                     <div class="position-relative h-100">
                                         <!-- <iframe class="position-relative rounded w-100 h-100"
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12709.124660138296!2d35.2115154!3d31.7683193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d98ebf40bf7f%3A0x9cebc3e3e74ea906!2sPalestine!5e0!3m2!1sen!2sil!4v1608726094000!5m2!1sen!2sil"
-                                            frameborder="0" style="min-height: 400px; border:0;" allowfullscreen="" aria-hidden="false"
-                                            tabindex="0"></iframe> -->
-                                            <div id="mapid">
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12709.124660138296!2d35.2115154!3d31.7683193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d98ebf40bf7f%3A0x9cebc3e3e74ea906!2sPalestine!5e0!3m2!1sen!2sil!4v1608726094000!5m2!1sen!2sil"
+                                        frameborder="0" style="min-height: 400px; border:0;" allowfullscreen="" aria-hidden="false"
+                                        tabindex="0"></iframe> -->
+                                        <div id="mapid">
 
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

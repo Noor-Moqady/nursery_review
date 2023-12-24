@@ -484,6 +484,7 @@ h6,
 
 .footer .copyright a {
     color: #FFFFFF;
+    display: inline;
 }
 
 .footer .footer-menu a {
@@ -505,4 +506,9 @@ h6,
 
 .team-item{
     margin-bottom: 8px;
+}
+
+.reviews-display{
+    display:flex;
+    align-items: ;
 }

@@ -177,74 +177,88 @@
         </div>
     </div>
     <!-- Carousel End -->
-
-
-       
-        <!-- Testimonial Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="mb-3">Our Clients Say!</h1>
-                    <p>Our clients speak volumes about their experiences. Their words echo satisfaction, trust, and appreciation for the personalized care and exceptional services they receive. Discover what they have to say about their journey with us.</p>
-                </div>
-                
-                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                    {% for review in specific_nursery.review.all%}
-                    <div class="testimonial-item bg-light rounded p-5">
-                        <div class="d-flex align-items-center bg-white me-n5" style="border-radius: 50px 0 0 50px;">
-                            <div class="ps-3">
-                                <h3 class="mb-1">{{review.uploaded_by.parent_name}} said:</h3>
-                            </div>
-                            <i class="fa fa-quote-right fa-3x text-primary ms-auto d-none d-sm-flex"></i>
-                        </div> 
-                        <p class="fs-5">{{review.review}}</p>
-                        {% if request.session.logged_user_parent_name == review.uploaded_by.parent_name %}
-                        <div class="d-flex pt-2>">
-                            <a href="/update/{{review.id}}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Update<i class="fa fa-arrow-right ms-3"></i></a>
-                            <a href="/delete/{{review.id}}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Delete<i class="fa fa-arrow-right ms-3"></i></a>
-
-                        </div>
-                        {% endif %}
-                    </div>
-                    {% endfor %} 
-                    <div ></div>
-                </div>
-                
-                 
-                
-                
-            </div>
-        </div>
-
-        <!-- Testimonial End -->
-        
+<input type="text" class="col-sm-6" placeholder="Search" style="width: 20rem;">
+            <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block" type="submit">Search</button>
             <div class="container-xxl py-5">
                 <div class="container">
-                    <div class="bg-light rounded">
-                        <div class="row g-0">
-                            
-                                <div class="h-100 d-flex flex-column justify-content-center p-5">
-                                    <h1 class="mb-4">Add Your Review</h1>
-                                    <form action="/update/{{specific_review.id}}" method="POST">
-                                        {% csrf_token %}
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <textarea name="review" class="form-control border-0" placeholder="Leave Your Review Here" id="message" style="height: 100px" >{{specific_review.review}}</textarea>
-                                                    <label for="message">Leave Your Review Here</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            
-                         
-                        </div>
+
+                    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 1500px;">
+                        <h1 class="mb-3">Reviews for Nurseries</h1>
+                        <p>The best nurseries provide a rich tapestry of educational programs, tailored activities, and
+                            an inclusive atmosphere that champions diversity and celebrates individuality. Beyond
+                            education, they prioritize open communication with parents, cultivating partnerships that
+                            support a child's development both at nursery and home. Ultimately, the best nursery is not
+                            just a place of care, but a cornerstone where fond memories are created, foundations are
+                            laid, and futures are shaped.</p>
                     </div>
+
+
+                    <div class="row g-4">
+                        {% for nursery in allnurseries%}
+                        <div >
+                            
+                            <div class="reviews-display">
+                                    <h3 style="width: 500px;"><a href="/nursery/{{nursery.id}}">{{nursery.nursery_name}}</a></h3>
+                                    <div class="d-flex align-items-center left">
+                                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="https://www.twitter.com"><i
+                                                class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary  mx-1" href="https://www.instagram.com"><i
+                                                class="fab fa-instagram"></i></a>
+                                        {% if specific_user.user_roles.id == 1 %}
+                                        <form action="/updatenursery/{{nursery.id}}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block"
+                                                type="submit">Update</button>
+                                        </form>
+                                        {%else%}
+                                        <div></div>
+                                        {% endif %}
+                                        {% if specific_user.user_roles.id == 1 %}
+                                        <form action="/deletenursery/{{nursery.id}}">
+                                            {% csrf_token %}
+                                            <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block"
+                                                type="submit">Delete</button>
+                                        </form>
+                                        {%else%}
+                                        <div></div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                </div>
+                                
+                                <p>Nursery Location:
+                                    <p style="display:none" class="loc_info">{{nursery.nursery_location}}</p>
+                                    </p>
+                                    <p class="address_info"></p>
+                                    <h5 style="font-size: 15px;">number of reviews:{{ nursery.review.count }}</h5>
+                                <ul>
+                                    {%for review in nursery.review.all %}
+                                    <li>{{review.uploaded_by.parent_name}} said: {{review.review}}</li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                            <a href="/nursery/{{nursery.id}}"
+                                class="btn btn-primary rounded-pill px-3 d-none d-lg-block" style="margin-bottom: 30px;">{{nursery.nursery_name}}
+                                Reviews<i class="fa fa-arrow-right ms-3"></i></a>
+
+                        </div>
+                      
+
+                        {% endfor %}
+                    </div>
+
                 </div>
             </div>
+
+
+
+            <!-- Team End -->
+
+
+
+
         
 
               <!-- Footer Start -->
@@ -316,6 +330,9 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{% static 'js/loadMapScript.js' %}"></script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{% static 'js/mapScript.js' %}"></script>
 
 
 </body>
