@@ -210,3 +210,11 @@ def reviews(request):
        'allreviews': Review.objects.all()
                }
     return render(request,"reviews.html", context)
+
+def search(request):
+    request.session['results']=[]
+    nurseries=Nursery.objects.filter(nursery_name__startswith=request.POST['search'])
+    for name in nurseries:
+        request.session['results'].append(name.nursery_name)
+        request.session.save()
+    return redirect('/')

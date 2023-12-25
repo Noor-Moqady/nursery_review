@@ -229,9 +229,30 @@
 
 
 
-            <!-- Team Start -->
-            <input type="text" class="col-sm-6" placeholder="Search" style="width: 20rem;">
-            <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block" type="submit">Search</button>
+            <!-- Search Part -->
+
+            <!-- <div class="container-xxl py-5">
+                <div class="container">
+                    <form action="/search" method="POST" class="reviews-display">
+                        {%csrf_token%}
+                        <input type="text" class="col-sm-6" placeholder="Search" style="width: 50rem; border-radius: 5%;" name="search">
+                        <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 1500px;">
+                        {% for nursery_name in request.session.results%}
+                       
+                        <div class="img-fluid rounded-circle w-75">
+                            <h3><a href="">{{nursery_name}}</a></h3>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div> -->
             <div class="container-xxl py-5">
                 <div class="container">
 
