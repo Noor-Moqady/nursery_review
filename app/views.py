@@ -30,7 +30,7 @@ def registration_form(request):
                 request.session['logged_user_id']=user.id
                 
 
-        return redirect('/')
+        return redirect('/register')
     
 
 

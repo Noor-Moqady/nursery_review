@@ -136,7 +136,8 @@
             </div>
             <a href="/register" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Join Us<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
-    </nav>
+        </nav>
+    
     <!-- Navbar End -->
 
 
@@ -175,21 +176,21 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Carousel End -->
-<input type="text" class="col-sm-6" placeholder="Search" style="width: 20rem;">
-            <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block" type="submit">Search</button>
+    
+        <!-- Carousel End -->
+            <!-- <input type="text" class="col-sm-6" placeholder="Search" style="width: 20rem;">
+            <button class="btn btn-primary rounded-pill px-3 d-none d-lg-block" type="submit">Search</button> -->
             <div class="container-xxl py-5">
                 <div class="container">
 
                     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 1500px;">
                         <h1 class="mb-3">Reviews for Nurseries</h1>
-                        <p>The best nurseries provide a rich tapestry of educational programs, tailored activities, and
+                        <!-- <p>The best nurseries provide a rich tapestry of educational programs, tailored activities, and
                             an inclusive atmosphere that champions diversity and celebrates individuality. Beyond
                             education, they prioritize open communication with parents, cultivating partnerships that
                             support a child's development both at nursery and home. Ultimately, the best nursery is not
                             just a place of care, but a cornerstone where fond memories are created, foundations are
-                            laid, and futures are shaped.</p>
+                            laid, and futures are shaped.</p> -->
                     </div>
 
 
@@ -242,17 +243,17 @@
                             <a href="/nursery/{{nursery.id}}"
                                 class="btn btn-primary rounded-pill px-3 d-none d-lg-block" style="margin-bottom: 30px;">{{nursery.nursery_name}}
                                 Reviews<i class="fa fa-arrow-right ms-3"></i></a>
-
+                                {% endfor %}
                         </div>
                       
 
-                        {% endfor %}
+                        
                     </div>
 
                 </div>
             </div>
 
-
+       
 
             <!-- Team End -->
 
@@ -260,7 +261,7 @@
 
 
         
-
+        </div>
               <!-- Footer Start -->
  <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container py-5">
